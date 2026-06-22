@@ -16,6 +16,7 @@ const botRoutes          = require('./routes/bots.routes');
 const alertRoutes        = require('./routes/alerts.routes');
 const transactionRoutes  = require('./routes/transactions.routes');
 const subscriptionRoutes = require('./routes/subscription.routes');
+const marketRoutes       = require('./routes/market.routes');
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use('/api/bots',          botRoutes);
 app.use('/api/alerts',        alertRoutes);
 app.use('/api/transactions',  transactionRoutes);
 app.use('/api/subscription',  subscriptionRoutes);
+app.use('/api/market',        marketRoutes);
 
 // ── 404 + error handling ──────────────────────────────────────────────────
 app.use(notFound);
