@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: cryptopulse-backend
+    runtime: node
+    rootDir: cryptopulse-backend/cryptopulse-backend
+    buildCommand: npm install
+    startCommand: node src/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
