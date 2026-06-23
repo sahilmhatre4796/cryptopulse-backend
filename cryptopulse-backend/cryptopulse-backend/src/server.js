@@ -70,6 +70,21 @@ app.use(errorHandler);
 const PORT = parseInt(process.env.PORT) || 4000;
 
 async function start() {
+  // Run migrations automatically on every startup. This is safe because
+  // every statement in schema.sql uses CREATE TABLE IF NOT EXISTS / CREATE
+  // OR REPLACE — re-running it never breaks existing data.
+  console.log('Running database migrations...');
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const sql = fs.readFileSync(path.join(__dirname, 'db/schema.sql'), 'utf8');
+    await pool.query(sql);
+    console.log('Migrations complete.');
+  } catch (err) {
+    console.error('FATAL: Migration failed:', err.message);
+    process.exit(1);
+  }
+
   try {
     await pool.query('SELECT 1');
     console.log('PostgreSQL connected');
